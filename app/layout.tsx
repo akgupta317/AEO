@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Space_Grotesk, Hanken_Grotesk, JetBrains_Mono } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import SchemaOrg from '@/components/SchemaOrg'
 
@@ -78,6 +79,18 @@ export default function RootLayout({
         <SchemaOrg />
       </head>
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-V3L7EV99VE"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-V3L7EV99VE');
+          `}
+        </Script>
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
