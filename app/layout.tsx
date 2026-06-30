@@ -80,7 +80,7 @@ export default function RootLayout({
       </head>
       <body>
         <Script
-          src="/gtag/js?id=G-V3L7EV99VE"
+          src="https://www.googletagmanager.com/gtag/js?id=G-V3L7EV99VE"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -88,9 +88,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-V3L7EV99VE', {
-              transport_url: 'https://makecited.com/ga4',
-            });
+            gtag('config', 'G-V3L7EV99VE');
           `}
         </Script>
         <a href="#main-content" className="skip-link">

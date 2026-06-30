@@ -2,18 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  async rewrites() {
-    return [
-      {
-        source: '/gtag/js',
-        destination: 'https://www.googletagmanager.com/gtag/js',
-      },
-      {
-        source: '/ga4/collect',
-        destination: 'https://www.google-analytics.com/g/collect',
-      },
-    ]
-  },
   async headers() {
     return [
       {

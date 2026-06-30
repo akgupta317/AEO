@@ -109,9 +109,39 @@ function DeliversCard() {
   )
 }
 
+type SubmitState = 'idle' | 'loading' | 'success' | 'error'
+
 export default function Hero() {
   const [domain, setDomain] = useState('')
   const [email, setEmail] = useState('')
+  const [submitState, setSubmitState] = useState<SubmitState>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setSubmitState('loading')
+    setErrorMsg('')
+
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000'}/api/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ domain, email }),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error((data as { error?: string }).error ?? 'Submission failed')
+      }
+
+      setSubmitState('success')
+      setDomain('')
+      setEmail('')
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : 'Something went wrong')
+      setSubmitState('error')
+    }
+  }
 
   return (
     <section
@@ -174,7 +204,7 @@ export default function Hero() {
 
             {/* Form */}
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
               style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 30, maxWidth: 560 }}
             >
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
@@ -236,24 +266,35 @@ export default function Hero() {
 
               <button
                 type="submit"
+                disabled={submitState === 'loading' || submitState === 'success'}
                 style={{
                   fontFamily: 'var(--font-space-grotesk)',
                   fontWeight: 700,
                   fontSize: 16.5,
                   color: '#fff',
-                  background: 'var(--accent)',
+                  background: submitState === 'success' ? '#4BAE5A' : 'var(--accent)',
                   border: '2px solid var(--ink)',
                   borderRadius: 12,
-                  boxShadow: '4px 4px 0 var(--ink)',
+                  boxShadow: submitState === 'loading' ? 'none' : '4px 4px 0 var(--ink)',
                   padding: '17px 24px',
-                  cursor: 'pointer',
+                  cursor: submitState === 'loading' || submitState === 'success' ? 'not-allowed' : 'pointer',
                   whiteSpace: 'nowrap',
                   alignSelf: 'flex-start',
+                  opacity: submitState === 'loading' ? 0.8 : 1,
+                  transition: 'background 0.2s',
                 }}
                 aria-label="Run my $1 AEO audit"
               >
-                Run my $1 audit →
+                {submitState === 'loading' && '⏳ Submitting…'}
+                {submitState === 'success' && '✓ Check your inbox!'}
+                {(submitState === 'idle' || submitState === 'error') && 'Run my $1 audit →'}
               </button>
+
+              {submitState === 'error' && (
+                <p style={{ fontFamily: 'var(--font-jetbrains-mono)', fontSize: 13, color: 'var(--alarm)', margin: 0 }}>
+                  {errorMsg}
+                </p>
+              )}
             </form>
 
             <div style={{
