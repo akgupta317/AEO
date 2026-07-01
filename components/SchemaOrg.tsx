@@ -4,9 +4,19 @@ export default function SchemaOrg() {
     '@type': 'Organization',
     name: 'MakeCited',
     url: 'https://makecited.com',
+    logo: 'https://makecited.com/logo.png',
     description:
-      'MakeCited provides $1 AEO audits showing whether your domain is cited by ChatGPT, Perplexity, Gemini, Claude, and Google AI Overviews.',
+      'AEO audit tool that shows whether AI engines cite your brand or recommend competitors instead. Get your audit for $1.',
     foundingDate: '2026',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'support@makecited.com',
+      contactType: 'customer support',
+    },
+    sameAs: [
+      'https://www.linkedin.com/company/makecited-ai',
+      'https://www.wikidata.org/wiki/Q140391940',
+    ],
   }
 
   const website = {
