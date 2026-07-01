@@ -3,6 +3,7 @@ import { Space_Grotesk, Hanken_Grotesk, JetBrains_Mono } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import SchemaOrg from '@/components/SchemaOrg'
+import { PostHogProvider } from './providers'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -93,10 +94,12 @@ export default function RootLayout({
             gtag('config', 'G-V3L7EV99VE');
           `}
         </Script>
-        <a href="#main-content" className="skip-link">
-          Skip to main content
-        </a>
-        {children}
+        <PostHogProvider>
+          <a href="#main-content" className="skip-link">
+            Skip to main content
+          </a>
+          {children}
+        </PostHogProvider>
       </body>
     </html>
   )
