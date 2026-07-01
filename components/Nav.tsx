@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 const links = [
   { label: 'What you get', href: '#what-you-get' },
@@ -43,32 +44,17 @@ export default function Nav() {
           {/* Logo */}
           <a
             href="/"
-            aria-label="makecited.com home"
-            style={{ textDecoration: 'none' }}
+            aria-label="MakeCited home"
+            style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}
           >
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 30,
-              height: 30,
-              border: '2px solid var(--ink)',
-              borderRadius: 8,
-              boxShadow: '2px 2px 0 var(--ink)',
-              background: 'var(--accent)',
-              marginRight: 10,
-              flexShrink: 0,
-            }}>
-              <span style={{ color: '#fff', fontFamily: 'var(--font-space-grotesk)', fontWeight: 700, fontSize: 14 }}>M</span>
-            </div>
-            <span style={{
-              fontFamily: 'var(--font-space-grotesk)',
-              fontWeight: 700,
-              fontSize: '1.25rem',
-              color: 'var(--ink)',
-              letterSpacing: '-0.02em',
-              verticalAlign: 'middle',
-            }}>makecited.com</span>
+            <Image
+              src="/makecited-logo-full.svg"
+              alt="MakeCited"
+              width={160}
+              height={36}
+              priority
+              style={{ height: 36, width: 'auto' }}
+            />
           </a>
 
           {/* Desktop nav */}
