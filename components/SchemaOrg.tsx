@@ -59,8 +59,35 @@ export default function SchemaOrg() {
       price: '1.00',
       priceCurrency: 'USD',
       priceValidUntil: '2027-12-31',
-      availability: 'https://schema.org/InStock',
       description: 'One-time AEO audit. Free to submit — pay $1 only if useful.',
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        shippingRate: {
+          '@type': 'MonetaryAmount',
+          value: '0',
+          currency: 'USD',
+        },
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 0,
+            maxValue: 0,
+            unitCode: 'DAY',
+          },
+          transitTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 0,
+            maxValue: 0,
+            unitCode: 'DAY',
+          },
+        },
+      },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'US',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+      },
     },
     featureList: [
       'AI visibility check across ChatGPT, Perplexity, Gemini, Claude, Google AI Overview',
