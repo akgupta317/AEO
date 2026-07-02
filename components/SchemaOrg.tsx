@@ -2,16 +2,24 @@ export default function SchemaOrg() {
   const organization = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': 'https://makecited.com/#organization',
     name: 'MakeCited',
     url: 'https://makecited.com',
-    logo: 'https://makecited.com/logo.png',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://makecited.com/logo.png',
+      width: 512,
+      height: 512,
+    },
     description:
       'AEO audit tool that shows whether AI engines cite your brand or recommend competitors instead. Get your audit for $1.',
     foundingDate: '2026',
+    email: 'support@makecited.com',
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'support@makecited.com',
       contactType: 'customer support',
+      availableLanguage: 'English',
     },
     sameAs: [
       'https://www.linkedin.com/company/makecited-ai',
@@ -22,29 +30,47 @@ export default function SchemaOrg() {
   const website = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': 'https://makecited.com/#website',
     name: 'MakeCited',
     url: 'https://makecited.com',
+    description: 'AEO audit tool — find out if AI recommends your competitors instead of you',
+    publisher: {
+      '@id': 'https://makecited.com/#organization',
+    },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: 'https://makecited.com/?q={search_term_string}',
+      'query-input': 'required name=search_term_string',
+    },
   }
 
   const product = {
     '@context': 'https://schema.org',
-    '@type': 'Product',
+    '@type': 'SoftwareApplication',
+    '@id': 'https://makecited.com/#product',
     name: 'MakeCited AEO Audit',
+    url: 'https://makecited.com',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
     description:
-      'A one-time $1 audit revealing whether your domain is cited by ChatGPT, Perplexity, Gemini, Claude, and Google AI Overviews, plus 3–5 prioritized fixes.',
-    brand: { '@type': 'Brand', name: 'MakeCited' },
+      'Find out if ChatGPT, Perplexity, Gemini, and Claude are recommending your competitors instead of you. Get a full AEO audit with visibility scores, competitor analysis, and prioritized fixes.',
     offers: {
       '@type': 'Offer',
       price: '1.00',
       priceCurrency: 'USD',
+      priceValidUntil: '2027-12-31',
       availability: 'https://schema.org/InStock',
-      priceValidUntil: '2027-01-01',
-      description: 'One-time payment, no subscription',
+      description: 'One-time AEO audit. Free to submit — pay $1 only if useful.',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
+    featureList: [
+      'AI visibility check across ChatGPT, Perplexity, Gemini, Claude, Google AI Overview',
+      'Competitor citation analysis',
+      'Technical AI-readiness audit (robots.txt, schema, content freshness)',
+      'AEO Score 0-100',
+      '3-5 prioritized action items',
+    ],
+    creator: {
+      '@id': 'https://makecited.com/#organization',
     },
   }
 
@@ -52,6 +78,46 @@ export default function SchemaOrg() {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is an AEO audit?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'An AEO (Answer Engine Optimization) audit checks whether AI platforms like ChatGPT, Perplexity, Gemini, and Claude mention or recommend your brand when buyers ask category questions. It reveals who AI recommends instead of you and why.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What does the $1 AEO audit include?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The audit includes: visibility check across 5 AI platforms, sentiment analysis of what AI says about you, competitor citation analysis showing who ranks above you, technical AI-readiness check (robots.txt, schema, content freshness), an AEO Score out of 100, and 3-5 prioritized fixes.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How long does the AEO audit take?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Most reports are delivered via email within 2-4 hours. Every audit is manually reviewed for quality before delivery.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is MakeCited a subscription?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No. It is a one-time $1 audit. No recurring charges, no auto-billing, no credit card required upfront. You only pay after receiving and reviewing your report.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is AEO vs SEO?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'SEO optimizes for ranking in Google search link lists. AEO (Answer Engine Optimization) optimizes for being cited by AI answer engines like ChatGPT, Perplexity, Gemini, and Claude. 58% of searches are now zero-click — AI answers the question before anyone visits your site.',
+        },
+      },
       {
         '@type': 'Question',
         name: 'What do I get for $1?',
@@ -103,26 +169,6 @@ export default function SchemaOrg() {
     ],
   }
 
-  const webPage = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: 'MakeCited — The $1 AEO Audit',
-    description:
-      'Find out if ChatGPT, Perplexity, Gemini, Claude & Google AI Overviews cite your domain. Full AEO audit delivered by email in ~10 minutes for just $1.',
-    url: 'https://makecited.com',
-    breadcrumb: {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: 'Home',
-          item: 'https://makecited.com',
-        },
-      ],
-    },
-  }
-
   return (
     <>
       <script
@@ -140,10 +186,6 @@ export default function SchemaOrg() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPage) }}
       />
     </>
   )
