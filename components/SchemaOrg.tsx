@@ -21,10 +21,6 @@ export default function SchemaOrg() {
       contactType: 'customer support',
       availableLanguage: 'English',
     },
-    sameAs: [
-      'https://www.linkedin.com/company/makecited-ai',
-      'https://www.wikidata.org/wiki/Q140391940',
-    ],
   }
 
   const website = {
